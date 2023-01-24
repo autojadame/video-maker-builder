@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const { copyFile } = require('fs').promises;
 const { join } = require('path');
+const nodeExternals = require("webpack-node-externals");
 
 function createBundler({ entryPath, userEntryPath, outDir, mode, entryOutName = 'index.js', initData }) {
   const config = {
@@ -13,6 +14,8 @@ function createBundler({ entryPath, userEntryPath, outDir, mode, entryOutName = 
       path: outDir,
       filename: entryOutName,
     },
+    externalsPresets: { node: true },   // <-- here
+    externals: [nodeExternals()],       // <-- and here
     resolve: {
       extensions: ['.jsx', '.js'],
       alias: {
