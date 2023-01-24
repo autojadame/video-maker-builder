@@ -28,7 +28,10 @@ function createBundler({ entryPath, userEntryPath, outDir, mode, entryOutName = 
         {
           test: /\.(jsx|js)$/,
 
-          exclude: (modulePath) => !(!/node_modules/.test(modulePath)),
+          exclude: (modulePath) => !(
+            !/node_modules/.test(modulePath)
+            || (/node_modules\/@reactive-video\/builder/.test(modulePath) && !/node_modules\/@reactive-video\/builder\/node_modules/.test(modulePath))
+          ),
           use: [{
             loader: require.resolve('babel-loader'),
             options: {
