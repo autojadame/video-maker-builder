@@ -19,7 +19,7 @@ function createBundler({ entryPath, userEntryPath, outDir, mode, entryOutName = 
         'reactive-video': require.resolve('reactive-video'),
         react: require.resolve('react'), // Use reactive-video's react package
         'react-dom': require.resolve('react-dom'),
-        'reactive-video-root-component': require.resolve('reactive-video-root-component'),
+        'reactive-video-root-component': userEntryPath,
       },
     },
 
@@ -32,6 +32,7 @@ function createBundler({ entryPath, userEntryPath, outDir, mode, entryOutName = 
             !/node_modules/.test(modulePath)
             || (/node_modules\/@reactive-video\/builder/.test(modulePath) && !/node_modules\/@reactive-video\/builder\/node_modules/.test(modulePath))
           ),
+
           use: [{
             loader: require.resolve('babel-loader'),
             options: {
